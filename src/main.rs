@@ -445,7 +445,7 @@ fn main() {
 			if support.total < slot_stake { slot_stake = support.total; }
 			println!("  Voters:");
 			support.others.iter().enumerate().for_each(|(i, o)| {
-				if j > 0 { println!("        ,"); }
+				if i > 0 { println!("        ,"); }
 				println!("        {{");
 				println!("          \"stake_nominator\": {},", o.1);
 				println!("          \"pub_key_nominator\": \"{}\"", o.0);
