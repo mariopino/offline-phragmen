@@ -405,7 +405,7 @@ fn main() {
 		println!("{{");
 		println!("  \"validator_count\": {:?},", validators.len());
 		println!("  \"nominator_count\": {:?},", nominators.len());
-		println!("  \"total_issuance\": {},", total_issuance);
+		println!("  \"total_issuance\": \"{}\",", total_issuance);
 		println!("  \"candidates\":");
 		println!("  [");
 
@@ -420,10 +420,10 @@ fn main() {
 			let others_sum: Balance = support.others.iter().map(|(_n, s)| s).sum();
 			let other_count = support.others.len();
 
-			println!("      \"stake_total\": {},", support.total);
-			println!("      \"stake_validator\": {},", support.own);
-			println!("      \"other_stake_sum\": {},", others_sum);
-			println!("      \"other_stake_count\": {},", other_count);
+			println!("      \"stake_total\": \"{}\",", support.total);
+			println!("      \"stake_validator\": \"{}\",", support.own);
+			println!("      \"other_stake_sum\": \"{}\",", others_sum);
+			println!("      \"other_stake_count\": \"{}\",", other_count);
 			println!("      \"pub_key_controller\": \"{}\",", staker_infos.get(&s.0).unwrap().ctrl);
 			println!("      \"voters\":");
 			println!("      [");
@@ -433,7 +433,7 @@ fn main() {
 			support.others.iter().enumerate().for_each(|(i, o)| {
 				if i > 0 { println!("        ,"); }
 				println!("        {{");
-				println!("          \"stake_nominator\": {},", o.1);
+				println!("          \"stake_nominator\": \"{}\",", o.1);
 				println!("          \"pub_key_nominator\": \"{}\"", o.0);
 				println!("        }}");
 			});
