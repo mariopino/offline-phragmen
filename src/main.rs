@@ -409,9 +409,7 @@ fn main() {
 		println!("  \"candidates\":");
 		println!("  [");
 
-		// println!("\n######################################\n+++ Winner Validators:");
 		winners.iter().enumerate().for_each(|(i, s)| {
-			// println!("#{} == {:?}", i + 1, s.0);
 
 			if i > 0 { println!("    ,"); }
 			println!("    {{");
@@ -421,17 +419,6 @@ fn main() {
 			let support = supports.get(&s.0).unwrap();
 			let others_sum: Balance = support.others.iter().map(|(_n, s)| s).sum();
 			let other_count = support.others.len();
-			
-			// println!(
-			// 	"  [stake_total: {:?}] [stake_own: {:?} ({}%)] [other_stake_sum: {:?} ({}%)] [other_stake_count: {}] [ctrl: {:?}]",
-			// 	KSM(support.total),
-			// 	KSM(support.own),
-			// 	support.own * 100 / support.total,
-			// 	KSM(others_sum),
-			// 	others_sum * 100 / support.total,
-			// 	other_count,
-			// 	staker_infos.get(&s.0).unwrap().ctrl,
-			// );
 
 			println!("      \"stake_total\": {},", support.total);
 			println!("      \"stake_validator\": {},", support.own);
@@ -443,7 +430,6 @@ fn main() {
 
 			assert_eq!(support.total, support.own + others_sum);
 			if support.total < slot_stake { slot_stake = support.total; }
-			// println!("  Voters:");
 			support.others.iter().enumerate().for_each(|(i, o)| {
 				if i > 0 { println!("        ,"); }
 				println!("        {{");
@@ -456,43 +442,8 @@ fn main() {
 		});
 		println!("  ],");
 
-		// println!("\n######################################\n+++ Updated Assignments:");
-		let mut counter = 1;
-		for (nominator, info) in nominator_info.iter() {
-			let staker_info = staker_infos.get(&nominator).unwrap();
-			let mut sum = 0;
-			// println!(
-			// 	"#{} {:?} // active_stake = {:?}",
-			// 	counter,
-			// 	nominator, KSM(staker_info.ledger.active),
-			// );
-			// println!("  Distributions:");
-			info.iter().enumerate().for_each(|(i, (c, s))| {
-				sum += *s;
-				// println!("    #{} {:?} => {:?}", i, c, KSM(*s));
-			});
-			counter += 1;
-			let diff = sum.max(staker_info.ledger.active) - sum.min(staker_info.ledger.active);
-			// acceptable diff is one millionth of a KSM
-			assert!(diff < 1_000, "diff{ sum_nominations,  staker_info.ledger.active} = ");
-			// println!("");
-		}
-
 		println!("  \"final_slot_stake\": \"{}\"", slot_stake);
 		println!("}}");
-
-		// println!("============================");
-		// println!("++ connected to [{}]", uri);
-		// println!("++ total_issuance = {:?}", KSM(total_issuance));
-		// println!(
-		// 	"++ args: [count to elect = {}] [min-count = {}] [output = {:?}]",
-		// 	validator_count,
-		// 	minimum_validator_count,
-		// 	output_file,
-		// );
-		// println!("++ validator intentions count {:?}", validators.len());
-		// println!("++ nominator intentions count {:?}", nominators.len());
-		// println!("++ final slot_stake {:?}", KSM(slot_stake));
 		futures::future::ok::<(), ()>(())
 	}))
 }
