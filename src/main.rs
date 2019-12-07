@@ -402,6 +402,13 @@ fn main() {
 		let mut slot_stake = u128::max_value();
 		let mut nominator_info: BTreeMap<AccountId, Vec<(AccountId, Balance)>> = BTreeMap::new();
 
+		println!("{{");
+		println!("  \"validator_count\": {:?},", validators.len());
+		println!("  \"nominator_count\": {:?},", nominators.len());
+		println!("  \"total_issuance\": {},", total_issuance);
+		println!("  \"candidates\":");
+		println!("  [");
+
 		println!("\n######################################\n+++ Winner Validators:");
 		winners.iter().enumerate().for_each(|(i, s)| {
 			println!("#{} == {:?}", i + 1, s.0);
