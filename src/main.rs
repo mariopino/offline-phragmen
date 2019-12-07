@@ -443,7 +443,7 @@ fn main() {
 
 			assert_eq!(support.total, support.own + others_sum);
 			if support.total < slot_stake { slot_stake = support.total; }
-			println!("  Voters:");
+			// println!("  Voters:");
 			support.others.iter().enumerate().for_each(|(i, o)| {
 				if i > 0 { println!("        ,"); }
 				println!("        {{");
@@ -478,8 +478,8 @@ fn main() {
 			// println!("");
 		}
 
-		// println!("  \"final_slot_stake\": \"{}\"", slot_stake);
-		// println!("}}");
+		println!("  \"final_slot_stake\": \"{}\"", slot_stake);
+		println!("}}");
 
 		// println!("============================");
 		// println!("++ connected to [{}]", uri);
